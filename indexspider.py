@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
-#  author: yukun
+#  author：wnight
+#  Based on：yukun
 import requests
 from bs4 import BeautifulSoup
 from requests.exceptions import RequestException
@@ -10,10 +11,11 @@ def get_html(url):
     try:
         resp = requests.get(url, headers=headers)
         if resp.status_code == 200:
-            print('ok')
+            print('程序加载--->100%')
             return resp.text
         return None
     except RequestException:
+        print(RequestException)
         return None
 
 def parse_index():
@@ -22,6 +24,7 @@ def parse_index():
     all_positions = soup.select('div.menu_sub.dn > dl > dd > a')
     joburls = [i['href'] for i in all_positions]
     jobnames = [i.get_text() for i in all_positions]
+    print(joburls,jobnames)
 
     for joburl, jobname in zip(joburls, jobnames):
         data = {

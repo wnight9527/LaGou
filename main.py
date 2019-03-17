@@ -9,19 +9,20 @@ def main(data):
     url = data['url']
     print(url)
     mongo_table = data['name']
+    # 数据库表名不能以.开头
     if mongo_table[0] == '.':
         mongo_table = mongo_table[1:]
     parse_link(url, mongo_table)
 
 
 if __name__ == '__main__':
-    t1 = time.time()
-
+    time_start = time.time()
+    # 进程池
     pool = Pool(processes=4)
-
     datas = (data for data in parse_index())
     pool.map(main, datas)
     pool.close()
+    # 调用join之前，先调用close函数，否则会出错。执行完close后不会有新的进程加入到pool,join函数等待所有子进程结束
     pool.join()
 
-    print(time.time() - t1)
+    print('运行时间：',time.time() - time_start)
