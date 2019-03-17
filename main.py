@@ -1,9 +1,11 @@
-# -*- coding:utf-8 -*-
+﻿# -*- coding:utf-8 -*-
 #  author: yukun
 import time
 from multiprocessing import Pool
 from spider import parse_link
 from indexspider import parse_index
+
+# 目录解析，换成制定的职业,增加城市列表，根据城市来做分析
 
 def main(data):
     url = data['url']
